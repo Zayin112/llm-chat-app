@@ -13,9 +13,9 @@ const typingIndicator = document.getElementById("typing-indicator");
 // Chat state
 let chatHistory = [
 	{
-		role: "assistant",
+		role: "asisten",
 		content:
-			"Hello! I'm an LLM chat app powered by Cloudflare Workers AI. How can I help you today?",
+			"Halo! Saya adalah aplikasi obrolan LLM yang didukung oleh Zayin AI. Bagaimana saya dapat membantu Anda hari ini?",
 	},
 ];
 let isProcessing = false;
