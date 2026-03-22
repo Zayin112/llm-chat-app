@@ -71,7 +71,7 @@ async function handleChatRequest(
 			MODEL_ID,
 			{
 				messages,
-				max_tokens: 131072,
+				max_tokens: 1024,
 				stream: true,
 			},
 			{
