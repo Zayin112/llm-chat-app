@@ -180,8 +180,8 @@ async function sendMessage() {
 	} catch (error) {
 		console.error("Error:", error);
 		addMessageToChat(
-			"assistant",
-			"Sorry, there was an error processing your request.",
+			"asisten",
+			"Maaf, terjadi kesalahan saat memproses permintaan Anda.",
 		);
 	} finally {
 		// Hide typing indicator
