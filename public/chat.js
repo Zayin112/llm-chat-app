@@ -68,7 +68,7 @@ async function sendMessage() {
 		// Create new assistant response element
 		const assistantMessageEl = document.createElement("div");
 		assistantMessageEl.className = "message assistant-message";
-		assistantMessageEl.innerHTML = "<p></p>";
+		assistantMessageEl.innerText = "<p></p>";
 		chatMessages.appendChild(assistantMessageEl);
 		const assistantTextEl = assistantMessageEl.querySelector("p");
 
@@ -175,7 +175,7 @@ async function sendMessage() {
 
 		// Add completed response to chat history
 		if (responseText.length > 0) {
-			chatHistory.push({ role: "assistant", content: responseText });
+			chatHistory.push({ role: "asisten", content: responseText });
 		}
 	} catch (error) {
 		console.error("Error:", error);
@@ -201,7 +201,7 @@ async function sendMessage() {
 function addMessageToChat(role, content) {
 	const messageEl = document.createElement("div");
 	messageEl.className = `message ${role}-message`;
-	messageEl.innerHTML = `<p>${content}</p>`;
+	messageEl.innerText = `<p>${content}</p>`;
 	chatMessages.appendChild(messageEl);
 
 	// Scroll to bottom
