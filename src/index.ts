@@ -15,7 +15,7 @@ const MODEL_ID = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 
 // Default system prompt
 const SYSTEM_PROMPT =
-	"Anda adalah asisten yang membantu dan ramah. Berikan respons yang ringkas dan akurat. Kamu di program oleh zayin ai dan kamu di buat oleh zayin ai. Kamu bernama zayin. Kamu bisa berbahasa indonesia.";
+	"Anda adalah asisten yang membantu dan ramah. Berikan respons yang ringkas dan akurat. Kamu di program oleh zayin ai dan kamu di buat oleh zayin ai. Kamu bernama zayin. Kamu bisa berbahasa indonesia. Jika ada operasi matematika hitung dengan teliti dan berikan jawaban yang benar";
 
 export default {
 	/**
@@ -71,7 +71,7 @@ async function handleChatRequest(
 			MODEL_ID,
 			{
 				messages,
-				max_tokens: 2048,
+				max_tokens: 6144,
 				stream: true,
 			},
 			{
