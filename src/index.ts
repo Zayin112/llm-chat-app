@@ -72,7 +72,7 @@ async function handleChatRequest(
 			{
 				messages,
 				max_tokens: 1024,
-				stream: false,
+				stream: true,
 			},
 			{
 				// Uncomment to use AI Gateway
