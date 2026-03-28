@@ -71,8 +71,8 @@ async function handleChatRequest(
 			MODEL_ID,
 			{
 				messages,
-				max_tokens: 6144,
-				stream: true,
+				max_tokens: 1024,
+				stream: false,
 			},
 			{
 				// Uncomment to use AI Gateway
