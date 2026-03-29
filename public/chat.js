@@ -1,8 +1,8 @@
 /**
- * LLM Chat App Frontend
- *
- * Handles the chat UI interactions and communication with the backend API.
- */
+ * LLM Chat App Frontend
+ *
+ * Handles the chat UI interactions and communication with the backend API.
+ */
 
 // DOM elements
 const chatMessages = document.getElementById("chat-messages");
@@ -13,7 +13,7 @@ const typingIndicator = document.getElementById("typing-indicator");
 // Chat state
 let chatHistory = [
 	{
-		role: "assistant",
+		role: "asisten",
 		content:
 			"Halo! Saya adalah aplikasi obrolan LLM yang didukung oleh Zayin AI. Bagaimana saya dapat membantu Anda hari ini?",
 	},
@@ -38,8 +38,8 @@ userInput.addEventListener("keydown", function (e) {
 sendButton.addEventListener("click", sendMessage);
 
 /**
- * Sends a message to the chat API and processes the response
- */
+ * Sends a message to the chat API and processes the response
+ */
 async function sendMessage() {
 	const message = userInput.value.trim();
 
@@ -68,11 +68,7 @@ async function sendMessage() {
 		// Create new assistant response element
 		const assistantMessageEl = document.createElement("div");
 		assistantMessageEl.className = "message assistant-message";
-<<<<<<<<< Temporary merge branch 1
 		assistantMessageEl.innerHTML = "<p></p>";
-=========
-		assistantMessageEl.innerText = "";
->>>>>>>>> Temporary merge branch 2
 		chatMessages.appendChild(assistantMessageEl);
 		const assistantTextEl = assistantMessageEl.querySelector("p");
 
@@ -179,12 +175,12 @@ async function sendMessage() {
 
 		// Add completed response to chat history
 		if (responseText.length > 0) {
-			chatHistory.push({ role: "assistant", content: responseText });
+			chatHistory.push({ role: "asisten", content: responseText });
 		}
 	} catch (error) {
 		console.error("Error:", error);
 		addMessageToChat(
-			"assistant",
+			"asisten",
 			"Maaf, terjadi kesalahan saat memproses permintaan Anda.",
 		);
 	} finally {
@@ -200,16 +196,12 @@ async function sendMessage() {
 }
 
 /**
- * Helper function to add message to chat
- */
+ * Helper function to add message to chat
+ */
 function addMessageToChat(role, content) {
 	const messageEl = document.createElement("div");
 	messageEl.className = `message ${role}-message`;
-<<<<<<<<< Temporary merge branch 1
 	messageEl.innerHTML = `<p>${content}</p>`;
-=========
-	messageEl.innerText = `${content}`;
->>>>>>>>> Temporary merge branch 2
 	chatMessages.appendChild(messageEl);
 
 	// Scroll to bottom
