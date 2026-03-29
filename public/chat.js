@@ -68,7 +68,11 @@ async function sendMessage() {
 		// Create new assistant response element
 		const assistantMessageEl = document.createElement("div");
 		assistantMessageEl.className = "message assistant-message";
+<<<<<<<<< Temporary merge branch 1
 		assistantMessageEl.innerHTML = "<p></p>";
+=========
+		assistantMessageEl.innerText = "";
+>>>>>>>>> Temporary merge branch 2
 		chatMessages.appendChild(assistantMessageEl);
 		const assistantTextEl = assistantMessageEl.querySelector("p");
 
@@ -201,7 +205,11 @@ async function sendMessage() {
 function addMessageToChat(role, content) {
 	const messageEl = document.createElement("div");
 	messageEl.className = `message ${role}-message`;
+<<<<<<<<< Temporary merge branch 1
 	messageEl.innerHTML = `<p>${content}</p>`;
+=========
+	messageEl.innerText = `${content}`;
+>>>>>>>>> Temporary merge branch 2
 	chatMessages.appendChild(messageEl);
 
 	// Scroll to bottom
