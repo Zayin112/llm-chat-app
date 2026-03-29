@@ -13,7 +13,7 @@ const typingIndicator = document.getElementById("typing-indicator");
 // Chat state
 let chatHistory = [
 	{
-		role: "asisten",
+		role: "assistant",
 		content:
 			"Halo! Saya adalah aplikasi obrolan LLM yang didukung oleh Zayin AI. Bagaimana saya dapat membantu Anda hari ini?",
 	},
@@ -68,7 +68,7 @@ async function sendMessage() {
 		// Create new assistant response element
 		const assistantMessageEl = document.createElement("div");
 		assistantMessageEl.className = "message assistant-message";
-		assistantMessageEl.innerHTML = "<p></p>";
+		assistantMessageEl.textContent = "<p></p>";
 		chatMessages.appendChild(assistantMessageEl);
 		const assistantTextEl = assistantMessageEl.querySelector("p");
 
@@ -175,12 +175,12 @@ async function sendMessage() {
 
 		// Add completed response to chat history
 		if (responseText.length > 0) {
-			chatHistory.push({ role: "asisten", content: responseText });
+			chatHistory.push({ role: "assistant", content: responseText });
 		}
 	} catch (error) {
 		console.error("Error:", error);
 		addMessageToChat(
-			"asisten",
+			"assistant",
 			"Maaf, terjadi kesalahan saat memproses permintaan Anda.",
 		);
 	} finally {
@@ -201,7 +201,7 @@ async function sendMessage() {
 function addMessageToChat(role, content) {
 	const messageEl = document.createElement("div");
 	messageEl.className = `message ${role}-message`;
-	messageEl.innerHTML = `<p>${content}</p>`;
+	messageEl.textContent = `<p>${content}</p>`;
 	chatMessages.appendChild(messageEl);
 
 	// Scroll to bottom
