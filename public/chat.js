@@ -18,7 +18,7 @@ let chatHistory = [
 			"Halo! Saya adalah aplikasi obrolan LLM yang didukung oleh Zayin AI. Bagaimana saya dapat membantu Anda hari ini?",
 	},
 ];
-let isProcessing = true;
+let isProcessing = false;
 
 // Auto-resize textarea as user types
 userInput.addEventListener("input", function () {
