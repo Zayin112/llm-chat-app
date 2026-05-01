@@ -193,10 +193,13 @@ function extractContent(jsonData) {
 
 	console.log("extractContent called with:", jsonData); // DEBUG
 
-	// Workers AI format: { response: "..." }
-	if (typeof jsonData.response === "string" && jsonData.response.length > 0) {
-		console.log("Matched: Workers AI format (response field)");
-		return jsonData.response;
+	// Workers AI format: { response: "..." } - handle both string and number
+	if (jsonData.response !== undefined && jsonData.response !== null) {
+		const responseValue = String(jsonData.response).trim();
+		if (responseValue.length > 0 && responseValue !== "0") {
+			console.log("Matched: Workers AI format (response field)");
+			return responseValue;
+		}
 	}
 
 	// OpenAI format: { choices: [{ delta: { content: "..." } }] }
