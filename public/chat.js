@@ -142,8 +142,10 @@ async function sendMessage() {
 				}
 				try {
 					const jsonData = JSON.parse(data);
+					console.log("Parsed JSON:", jsonData); // DEBUG: Log raw response
 					// Extract content from response - supports multiple formats
 					let content = extractContent(jsonData);
+					console.log("Extracted content:", content); // DEBUG: Log extracted content
 					if (content) {
 						responseText += content;
 						flushAssistantText();
@@ -183,41 +185,57 @@ async function sendMessage() {
  * Extract content from various response formats
  */
 function extractContent(jsonData) {
+	// Handle null or undefined
+	if (!jsonData) {
+		console.warn("jsonData is null or undefined");
+		return "";
+	}
+
+	console.log("extractContent called with:", jsonData); // DEBUG
+
 	// Workers AI format: { response: "..." }
 	if (typeof jsonData.response === "string" && jsonData.response.length > 0) {
+		console.log("Matched: Workers AI format (response field)");
 		return jsonData.response;
 	}
 
 	// OpenAI format: { choices: [{ delta: { content: "..." } }] }
 	if (jsonData.choices?.[0]?.delta?.content) {
+		console.log("Matched: OpenAI format (choices)");
 		return jsonData.choices[0].delta.content;
 	}
 
 	// Anthropic format: { delta: { text: "..." } }
 	if (jsonData.delta?.text) {
+		console.log("Matched: Anthropic format (delta.text)");
 		return jsonData.delta.text;
 	}
 
 	// Generic text field
 	if (typeof jsonData.text === "string" && jsonData.text.length > 0) {
+		console.log("Matched: Generic text field");
 		return jsonData.text;
 	}
 
 	// Generic data field
 	if (typeof jsonData.data === "string" && jsonData.data.length > 0) {
+		console.log("Matched: Generic data field");
 		return jsonData.data;
 	}
 
 	// Generic message field
 	if (typeof jsonData.message === "string" && jsonData.message.length > 0) {
+		console.log("Matched: Generic message field");
 		return jsonData.message;
 	}
 
 	// Plain string response
 	if (typeof jsonData === "string" && jsonData.length > 0) {
+		console.log("Matched: Plain string response");
 		return jsonData;
 	}
 
+	console.warn("No matching format found for:", jsonData);
 	return "";
 }
 
