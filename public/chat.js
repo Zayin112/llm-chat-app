@@ -1,8 +1,8 @@
 /**
- * LLM Chat App Frontend
- *
- * Handles the chat UI interactions and communication with the backend API.
- */
+ * LLM Chat App Frontend
+ *
+ * Handles the chat UI interactions and communication with the backend API.
+ */
 
 // DOM elements
 const chatMessages = document.getElementById("chat-messages");
@@ -38,8 +38,8 @@ userInput.addEventListener("keydown", function (e) {
 sendButton.addEventListener("click", sendMessage);
 
 /**
- * Sends a message to the chat API and processes the response
- */
+ * Sends a message to the chat API and processes the response
+ */
 async function sendMessage() {
 	const message = userInput.value.trim();
 
@@ -117,16 +117,8 @@ async function sendMessage() {
 					}
 					try {
 						const jsonData = JSON.parse(data);
-						// Handle both Workers AI format (response) and OpenAI format (choices[0].delta.content)
-						let content = "";
-						if (
-							typeof jsonData.response === "string" &&
-							jsonData.response.length > 0
-						) {
-							content = jsonData.response;
-						} else if (jsonData.choices?.[0]?.delta?.content) {
-							content = jsonData.choices[0].delta.content;
-						}
+						// Extract content from response - supports multiple formats
+						let content = extractContent(jsonData);
 						if (content) {
 							responseText += content;
 							flushAssistantText();
@@ -150,16 +142,8 @@ async function sendMessage() {
 				}
 				try {
 					const jsonData = JSON.parse(data);
-					// Handle both Workers AI format (response) and OpenAI format (choices[0].delta.content)
-					let content = "";
-					if (
-						typeof jsonData.response === "string" &&
-						jsonData.response.length > 0
-					) {
-						content = jsonData.response;
-					} else if (jsonData.choices?.[0]?.delta?.content) {
-						content = jsonData.choices[0].delta.content;
-					}
+					// Extract content from response - supports multiple formats
+					let content = extractContent(jsonData);
 					if (content) {
 						responseText += content;
 						flushAssistantText();
@@ -196,8 +180,50 @@ async function sendMessage() {
 }
 
 /**
- * Helper function to add message to chat
- */
+ * Extract content from various response formats
+ */
+function extractContent(jsonData) {
+	// Workers AI format: { response: "..." }
+	if (typeof jsonData.response === "string" && jsonData.response.length > 0) {
+		return jsonData.response;
+	}
+
+	// OpenAI format: { choices: [{ delta: { content: "..." } }] }
+	if (jsonData.choices?.[0]?.delta?.content) {
+		return jsonData.choices[0].delta.content;
+	}
+
+	// Anthropic format: { delta: { text: "..." } }
+	if (jsonData.delta?.text) {
+		return jsonData.delta.text;
+	}
+
+	// Generic text field
+	if (typeof jsonData.text === "string" && jsonData.text.length > 0) {
+		return jsonData.text;
+	}
+
+	// Generic data field
+	if (typeof jsonData.data === "string" && jsonData.data.length > 0) {
+		return jsonData.data;
+	}
+
+	// Generic message field
+	if (typeof jsonData.message === "string" && jsonData.message.length > 0) {
+		return jsonData.message;
+	}
+
+	// Plain string response
+	if (typeof jsonData === "string" && jsonData.length > 0) {
+		return jsonData;
+	}
+
+	return "";
+}
+
+/**
+ * Helper function to add message to chat
+ */
 function addMessageToChat(role, content) {
 	const messageEl = document.createElement("div");
 	messageEl.className = `message ${role}-message`;
